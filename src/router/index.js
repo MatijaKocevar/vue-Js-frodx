@@ -1,27 +1,27 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import RegistrationPage from '../components/registration-page.vue'
-import AboutPage from '../components/about-page.vue'
+import RegistrationPage from '../components/RegistrationPage/RegistrationPage.vue'
+import AboutPage from '../components/AboutPage/AboutPage.vue'
 
 const routes = [
   {
     path: '/',
-    redirect: '/registration',
+    redirect: '/registration'
   },
   {
     path: '/registration',
     name: 'Registration',
-    component: RegistrationPage,
+    component: RegistrationPage
   },
   {
     path: '/about',
     name: 'About',
-    component: AboutPage,
-  },
+    component: AboutPage
+  }
 ]
 
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes
-  })
+  history: createWebHashHistory(),
+  routes
+})
 
 export default router
