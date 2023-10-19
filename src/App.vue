@@ -1,9 +1,13 @@
-<script setup>
-  console.log('Hello World!')
-</script>
-
 <template>
-  <div>FrodX assignment</div>
+  <div id="app">
+    <p>
+      <router-link to="/">
+        Registration
+      </router-link>
+      <router-link to="/about">
+        About
+      </router-link>
+    </p>
+    <router-view />
+  </div>
 </template>
-
-<style scoped></style>
