@@ -1,5 +1,33 @@
+<script setup>
+  import { ref, onMounted, onBeforeUnmount } from 'vue'
+
+  const navElement = ref(null)
+
+  const handleResize = () => {
+    calculateAndEmitNavbarHeight()
+  }
+
+  const calculateAndEmitNavbarHeight = () => {
+    if (navElement.value) {
+      const navbarHeight = navElement.value.offsetHeight
+      emit('navbar-resized', navbarHeight)
+    }
+  }
+
+  onMounted(() => {
+    window.addEventListener('resize', handleResize)
+    calculateAndEmitNavbarHeight()
+  })
+
+  onBeforeUnmount(() => {
+    window.removeEventListener('resize', handleResize)
+  })
+
+  const emit = defineEmits(['navbar-resized'])
+</script>
+
 <template>
-  <nav id="navigation-bar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav id="navigation-bar" :ref="navElement" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <button
       class="navbar-toggler"
       type="button"
@@ -23,26 +51,5 @@
     </div>
   </nav>
 </template>
-
-<script>
-  export default {
-    emits: ['navbar-resized'],
-    mounted() {
-      window.addEventListener('resize', this.handleResize)
-
-      this.calculateAndEmitNavbarHeight()
-    },
-    methods: {
-      handleResize() {
-        this.calculateAndEmitNavbarHeight()
-      },
-      calculateAndEmitNavbarHeight() {
-        const navbarHeight = this.$el.offsetHeight
-
-        this.$emit('navbar-resized', navbarHeight)
-      }
-    }
-  }
-</script>
 
 <style src="./NavigationBarStyle.scss" scoped />
