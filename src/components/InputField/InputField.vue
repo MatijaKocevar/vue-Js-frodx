@@ -27,25 +27,16 @@
 
   const emit = defineEmits(['input'])
 
-  const {
-    id: inputId,
-    label: inputLabel,
-    type: inputType,
-    value,
-    errorMessage,
-    isRequired: inputIsRequired
-  } = toRefs(props)
-
-  const localValue = ref(value.value)
+  const { id, label, type, value, errorMessage, isRequired } = toRefs(props)
   const inputFieldRef = ref(null)
 
   const handleInput = () => {
     validateInput()
-    emit('input', localValue.value)
+    emit('input', value.value)
   }
 
   const validateInput = () => {
-    if (inputFieldRef.value.value.trim() === '' && inputIsRequired.value) {
+    if (inputFieldRef.value.value.trim() === '' && isRequired.value) {
       inputFieldRef.value.setCustomValidity(errorMessage.value)
     } else {
       inputFieldRef.value.setCustomValidity('')
@@ -58,12 +49,12 @@
 
 <template>
   <div class="input-field">
-    <label :for="inputId">{{ inputLabel }}:</label>
+    <label :for="id">{{ label }}:</label>
     <input
-      :id="inputId"
+      :id="id"
       ref="inputFieldRef"
       v-model="localValue"
-      :type="inputType"
+      :type="type"
       :required="inputIsRequired"
       autocomplete="on"
       @input="handleInput"
