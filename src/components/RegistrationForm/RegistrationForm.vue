@@ -1,3 +1,22 @@
+<script setup>
+  import InputField from '../InputField/InputField.vue'
+  import { ref } from 'vue'
+
+  const formData = ref({
+    name: '',
+    email: '',
+    phone: ''
+  })
+
+  const handleSubmit = () => {
+    console.log(formData.value)
+  }
+
+  const handleNameInput = (value) => (formData.value.name = value)
+  const handleEmailInput = (value) => (formData.value.email = value)
+  const handlePhoneInput = (value) => (formData.value.phone = value)
+</script>
+
 <template>
   <div class="registration-form">
     <form @submit.prevent="handleSubmit">
@@ -32,38 +51,5 @@
     </form>
   </div>
 </template>
-
-<script>
-  import InputField from '../InputField/InputField.vue'
-
-  export default {
-    components: {
-      InputField
-    },
-    data() {
-      return {
-        formData: {
-          name: '',
-          email: '',
-          phone: ''
-        }
-      }
-    },
-    methods: {
-      handleSubmit() {
-        console.log(this.formData)
-      },
-      handleNameInput(value) {
-        this.formData.name = value
-      },
-      handleEmailInput(value) {
-        this.formData.email = value
-      },
-      handlePhoneInput(value) {
-        this.formData.phone = value
-      }
-    }
-  }
-</script>
 
 <style src="./RegistrationFormStyle.scss" scoped />
