@@ -1,3 +1,19 @@
+<script setup>
+  import { ref, computed } from 'vue'
+  import NavigationBar from './components/NavigationBar/NavigationBar.vue'
+
+  const navbarHeight = ref(0)
+
+  const handleNavbarResize = (height) => {
+    navbarHeight.value = height
+  }
+
+  const contentStyles = computed(() => {
+    const paddingTop = `${navbarHeight.value}px`
+    return { paddingTop }
+  })
+</script>
+
 <template>
   <NavigationBar @navbar-resized="handleNavbarResize" />
 
@@ -6,30 +22,4 @@
   </div>
 </template>
 
-<script>
-  import NavigationBar from './components/NavigationBar/NavigationBar.vue'
-
-  export default {
-    components: {
-      NavigationBar
-    },
-    data() {
-      return {
-        navbarHeight: 0
-      }
-    },
-    computed: {
-      contentStyles() {
-        const paddingTop = this.navbarHeight + 'px'
-        return { paddingTop }
-      }
-    },
-    methods: {
-      handleNavbarResize(navbarHeight) {
-        this.navbarHeight = navbarHeight
-      }
-    }
-  }
-</script>
-
-<style src="./AppStyle.scss" scoped />
+<style src="./AppStyle.scss" scoped></style>
