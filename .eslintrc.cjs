@@ -9,5 +9,6 @@ module.exports = {
     'vue/multiline-html-element-content-newline': 'off',
     'vue/max-attributes-per-line': 'off',
     'vue/html-self-closing': 'off'
-  }
+  },
+  "ignorePatterns": ["**/dist/*"]
 }
