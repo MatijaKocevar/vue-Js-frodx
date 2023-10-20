@@ -1,7 +1,15 @@
 <template>
   <div class="input-field">
     <label :for="id">{{ label }}:</label>
-    <input :id="id" ref="inputField" :value="localValue" :type="type" :required="isRequired" @input="handleInput" />
+    <input
+      :id="id"
+      ref="inputField"
+      :value="localValue"
+      :type="type"
+      :required="isRequired"
+      autocomplete="on"
+      @input="handleInput"
+    />
   </div>
 </template>
 
