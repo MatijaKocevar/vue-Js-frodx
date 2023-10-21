@@ -1,6 +1,8 @@
 <script setup>
   import InputField from '../InputField/InputField.vue'
   import { ref } from 'vue'
+  import { useUserRegistrationStore } from '../../stores/userRegistration'
+  import RegistrationStatus from '../RegistrationStatus/RegistrationStatus.vue'
 
   const formData = ref({
     name: '',
@@ -8,13 +10,17 @@
     phone: ''
   })
 
-  const handleSubmit = () => {
-    console.log(formData.value)
-  }
+  const store = useUserRegistrationStore()
 
-  const handleNameInput = (value) => (formData.value.name = value)
-  const handleEmailInput = (value) => (formData.value.email = value)
-  const handlePhoneInput = (value) => (formData.value.phone = value)
+  const handleSubmit = () => {
+    const wasSuccessful = store.submitRegistration(formData.value)
+
+    if (wasSuccessful) {
+      formData.value.name = ''
+      formData.value.email = ''
+      formData.value.phone = ''
+    }
+  }
 </script>
 
 <template>
@@ -27,7 +33,6 @@
         type="text"
         :is-required="true"
         error-message="Name is required."
-        @input="handleNameInput"
       />
       <InputField
         id="email"
@@ -36,7 +41,6 @@
         type="email"
         :is-required="true"
         error-message="Email is required."
-        @input="handleEmailInput"
       />
       <InputField
         id="phone"
@@ -45,10 +49,10 @@
         type="tel"
         :is-required="true"
         error-message="Phone is required."
-        @input="handlePhoneInput"
       />
       <button type="submit">Submit</button>
     </form>
+    <RegistrationStatus />
   </div>
 </template>
 
