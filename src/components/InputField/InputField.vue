@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, toRefs, defineProps, defineEmits } from 'vue'
+  import { ref, toRefs, watch } from 'vue'
 
   const props = defineProps({
     id: {
@@ -14,7 +14,7 @@
       type: String,
       required: true
     },
-    value: {
+    modelValue: {
       type: String,
       default: ''
     },
@@ -25,14 +25,23 @@
     isRequired: Boolean
   })
 
-  const emit = defineEmits(['input'])
+  const emit = defineEmits(['update:modelValue'])
 
-  const { id, label, type, value, errorMessage, isRequired } = toRefs(props)
+  const { id, label, type, modelValue, errorMessage, isRequired } = toRefs(props)
+
+  const localValue = ref(modelValue.value)
   const inputFieldRef = ref(null)
+
+  watch(localValue, (newValue) => {
+    emit('update:modelValue', newValue)
+  })
+
+  watch(modelValue, (newVal) => {
+    localValue.value = newVal
+  })
 
   const handleInput = () => {
     validateInput()
-    emit('input', value.value)
   }
 
   const validateInput = () => {
@@ -55,7 +64,7 @@
       ref="inputFieldRef"
       v-model="localValue"
       :type="type"
-      :required="inputIsRequired"
+      :required="isRequired"
       autocomplete="on"
       @input="handleInput"
     />
