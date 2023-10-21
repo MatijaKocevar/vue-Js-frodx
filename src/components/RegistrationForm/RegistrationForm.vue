@@ -64,4 +64,4 @@
   </div>
 </template>
 
-<style src="./RegistrationFormStyle.scss" scoped />
+<style lang="scss" src="./RegistrationFormStyle.scss" scoped />

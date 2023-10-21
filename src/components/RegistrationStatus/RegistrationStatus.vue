@@ -18,4 +18,4 @@
   </div>
 </template>
 
-<style src="./RegistrationStatusStyle.scss" scoped />
+<style lang="scss" src="./RegistrationStatusStyle.scss" scoped />

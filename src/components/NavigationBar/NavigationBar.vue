@@ -1,8 +1,8 @@
 <script setup>
-  import { ref, onMounted, onBeforeUnmount } from 'vue'
+  import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
   import RegistrationStatus from '../RegistrationStatus/RegistrationStatus.vue'
 
-  const navElement = ref(null)
+  const navElement = ref('')
 
   const handleResize = () => {
     calculateAndEmitNavbarHeight()
@@ -16,8 +16,10 @@
   }
 
   onMounted(() => {
-    window.addEventListener('resize', handleResize)
-    calculateAndEmitNavbarHeight()
+    nextTick(() => {
+      window.addEventListener('resize', handleResize)
+      calculateAndEmitNavbarHeight()
+    })
   })
 
   onBeforeUnmount(() => {
@@ -28,7 +30,7 @@
 </script>
 
 <template>
-  <nav id="navigation-bar" :ref="navElement" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <nav id="navigation-bar" ref="navElement" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <button
       class="navbar-toggler"
       type="button"
@@ -47,6 +49,9 @@
           <router-link to="/" class="nav-link d-lg-inline d-block"> Registration </router-link>
         </li>
         <li class="nav-item">
+          <router-link to="/forms" class="nav-link d-lg-inline d-block"> Forms </router-link>
+        </li>
+        <li class="nav-item">
           <router-link to="/about" class="nav-link d-lg-inline d-block"> About </router-link>
         </li>
       </ul>
@@ -54,4 +59,4 @@
   </nav>
 </template>
 
-<style src="./NavigationBarStyle.scss" scoped />
+<style lang="scss" src="./NavigationBarStyle.scss" scoped />

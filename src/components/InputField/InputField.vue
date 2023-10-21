@@ -71,4 +71,4 @@
   </div>
 </template>
 
-<style src="./InputFieldStyle.scss" scoped />
+<style lang="scss" src="./InputFieldStyle.scss" scoped />
