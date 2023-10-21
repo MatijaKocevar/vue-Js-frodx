@@ -1,6 +1,6 @@
 <script setup>
   import { ref, computed } from 'vue'
-  import NavigationBar from './components/NavigationBar/NavigationBar.vue'
+  import NavigationBar from './components/NavigationComponents/NavigationBar/NavigationBar.vue'
 
   const navbarHeight = ref(0)
 

@@ -1,8 +1,8 @@
 <script setup>
-  import SampleForm from '../../components/SampleForm/SampleForm.vue'
-  import AddressForm from '../../components/AddressForm/AddressForm.vue'
-  import PaymentDetailsForm from '../../components/PaymentDetailsForm/PaymentDetailsForm.vue'
-  import UserProfileForm from '../../components/UserProfileForm/UserProfileForm.vue'
+  import SampleForm from '../../components/FormComponents/SampleForm/SampleForm.vue'
+  import AddressForm from '../../components/FormComponents/AddressForm/AddressForm.vue'
+  import PaymentDetailsForm from '../../components/FormComponents/PaymentDetailsForm/PaymentDetailsForm.vue'
+  import UserProfileForm from '../../components/FormComponents/UserProfileForm/UserProfileForm.vue'
 </script>
 
 <template>

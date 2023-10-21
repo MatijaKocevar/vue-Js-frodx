@@ -1,7 +1,7 @@
 <script setup>
   import { computed } from 'vue'
-  import { useUserRegistrationStore } from '../../stores/userRegistration'
-  import { useUnsavedChangesStore } from '../../stores/unsavedChanges'
+  import { useUserRegistrationStore } from '../../../../stores/userRegistration'
+  import { useUnsavedChangesStore } from '../../../../stores/unsavedChanges'
 
   const registrationStore = useUserRegistrationStore()
   const unsavedChangesStore = useUnsavedChangesStore()

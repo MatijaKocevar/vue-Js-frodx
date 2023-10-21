@@ -13,7 +13,7 @@
 </script>
 
 <template>
-  <DynamicForm v-model="formData" @submit="handleFormSubmit">
+  <DynamicForm v-model="formData" title="Sample" @submit="handleFormSubmit">
     <template #default="{ modelValue, input }">
       <div class="input-field">
         <label for="name">Name:</label>

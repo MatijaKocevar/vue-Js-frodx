@@ -4,13 +4,17 @@
   const emit = defineEmits(['update:modelValue', 'submit'])
 
   const props = defineProps({
+    title: {
+      type: String,
+      default: ''
+    },
     modelValue: {
       type: Object,
       default: () => ({})
     }
   })
 
-  const { modelValue } = toRefs(props)
+  const { modelValue, title } = toRefs(props)
   const errorMessage = ref('')
 
   const handleInput = (key, value) => {
@@ -33,6 +37,7 @@
 <template>
   <div class="registration-form">
     <form @submit.prevent="handleSubmit">
+      <h2>{{ title }}</h2>
       <slot v-bind="{ modelValue, input: handleInput }"></slot>
       <div v-if="errorMessage">{{ errorMessage }}</div>
       <button type="submit">Submit</button>
