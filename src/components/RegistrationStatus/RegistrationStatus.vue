@@ -13,8 +13,8 @@
 
 <template>
   <div class="registration-status">
-    <div v-if="showSubmitted" class="submitted">Submitted</div>
-    <div v-else-if="registrationStatus === 'Error'" class="error">Error: {{ errorMessage }}</div>
+    <p v-if="showSubmitted" v-highlight="'green'" class="submitted">Submitted</p>
+    <p v-else-if="registrationStatus === 'Error'" v-highlight="'red'" class="error">Error: {{ errorMessage }}</p>
   </div>
 </template>
 
