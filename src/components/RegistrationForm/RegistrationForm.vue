@@ -4,6 +4,7 @@
   import { useUserRegistrationStore } from '../../stores/userRegistration'
   import RegistrationStatus from '../RegistrationStatus/RegistrationStatus.vue'
 
+  const unsavedChanges = ref(false)
   const formData = ref({
     name: '',
     email: '',
@@ -19,7 +20,12 @@
       formData.value.name = ''
       formData.value.email = ''
       formData.value.phone = ''
+      unsavedChanges.value = false
     }
+  }
+
+  const handleInputChange = () => {
+    unsavedChanges.value = true
   }
 </script>
 
@@ -33,6 +39,7 @@
         type="text"
         :is-required="true"
         error-message="Name is required."
+        @input="handleInputChange"
       />
       <InputField
         id="email"
@@ -41,6 +48,7 @@
         type="email"
         :is-required="true"
         error-message="Email is required."
+        @input="handleInputChange"
       />
       <InputField
         id="phone"
@@ -49,10 +57,11 @@
         type="tel"
         :is-required="true"
         error-message="Phone is required."
+        @input="handleInputChange"
       />
       <button type="submit">Submit</button>
     </form>
-    <RegistrationStatus />
+    <RegistrationStatus :unsaved-changes="unsavedChanges" />
   </div>
 </template>
 
