@@ -1,5 +1,12 @@
 .navbar {
-  justify-content: flex-end;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 1rem;
+
+  .navbar-toggler {
+    margin: 0 1rem;
+  }
+
   .navbar-items {
     justify-content: flex-end;
     .navbar-nav {
@@ -18,5 +25,11 @@
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .navbar {
+    flex-direction: row-reverse;
   }
 }
