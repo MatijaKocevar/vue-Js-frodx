@@ -4,7 +4,7 @@ import App from './App.vue'
 import router from './router/index'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap'
-import { createPinia } from '@pinia/store'
+import { createPinia } from 'pinia'
 
 const app = createApp(App)
 
