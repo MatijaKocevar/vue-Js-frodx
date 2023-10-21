@@ -2,30 +2,30 @@
   import InputField from '../InputField/InputField.vue'
   import { ref } from 'vue'
   import { useUserRegistrationStore } from '../../stores/userRegistration'
-  import RegistrationStatus from '../RegistrationStatus/RegistrationStatus.vue'
+  import { useUnsavedChangesStore } from '../../stores/unsavedChanges'
 
-  const unsavedChanges = ref(false)
   const formData = ref({
     name: '',
     email: '',
     phone: ''
   })
 
-  const store = useUserRegistrationStore()
+  const { submitRegistration } = useUserRegistrationStore()
+  const { setUnsavedChanges } = useUnsavedChangesStore()
 
   const handleSubmit = () => {
-    const wasSuccessful = store.submitRegistration(formData.value)
+    const wasSuccessful = submitRegistration(formData.value)
 
     if (wasSuccessful) {
       formData.value.name = ''
       formData.value.email = ''
       formData.value.phone = ''
-      unsavedChanges.value = false
+      setUnsavedChanges(false)
     }
   }
 
   const handleInputChange = () => {
-    unsavedChanges.value = true
+    setUnsavedChanges(true)
   }
 </script>
 
@@ -61,7 +61,6 @@
       />
       <button type="submit">Submit</button>
     </form>
-    <RegistrationStatus :unsaved-changes="unsavedChanges" />
   </div>
 </template>
 
