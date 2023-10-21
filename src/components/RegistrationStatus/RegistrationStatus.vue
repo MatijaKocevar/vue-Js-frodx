@@ -1,25 +1,21 @@
 <script setup>
-  import { computed, toRefs } from 'vue'
+  import { computed } from 'vue'
   import { useUserRegistrationStore } from '../../stores/userRegistration'
+  import { useUnsavedChangesStore } from '../../stores/unsavedChanges'
 
-  const props = defineProps({
-    unsavedChanges: {
-      type: String,
-      required: true
-    }
-  })
+  const registrationStore = useUserRegistrationStore()
+  const unsavedChangesStore = useUnsavedChangesStore()
 
-  const { unsavedChanges } = toRefs(props)
-  const store = useUserRegistrationStore()
-
-  const registrationStatus = computed(() => store.registrationStatus)
-  const errorMessage = computed(() => store.errorMessage)
-  const showSubmitted = computed(() => registrationStatus.value === 'Submitted' && !unsavedChanges.value)
+  const registrationStatus = computed(() => registrationStore.registrationStatus)
+  const errorMessage = computed(() => registrationStore.errorMessage)
+  const showSubmitted = computed(() => registrationStatus.value === 'Submitted' && !unsavedChangesStore.unsavedChanges)
 </script>
 
 <template>
-  <div>
-    <div v-if="showSubmitted">Submitted</div>
-    <div v-else-if="registrationStatus === 'Error'">Error: {{ errorMessage }}</div>
+  <div class="registration-status">
+    <div v-if="showSubmitted" class="submitted">Submitted</div>
+    <div v-else-if="registrationStatus === 'Error'" class="error">Error: {{ errorMessage }}</div>
   </div>
 </template>
+
+<style src="./RegistrationStatusStyle.scss" scoped />

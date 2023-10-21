@@ -1,5 +1,6 @@
 <script setup>
   import { ref, onMounted, onBeforeUnmount } from 'vue'
+  import RegistrationStatus from '../RegistrationStatus/RegistrationStatus.vue'
 
   const navElement = ref(null)
 
@@ -39,6 +40,7 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
+    <RegistrationStatus />
     <div id="navbarNav" class="navbar-items collapse navbar-collapse">
       <ul class="navbar-nav">
         <li class="nav-item">
