@@ -1,5 +1,5 @@
 <script setup>
-  import { ref, toRefs, watch } from 'vue'
+  import { ref, toRefs } from 'vue'
   import { simulateApiCall } from '../../../services/api'
 
   const emit = defineEmits(['update:modelValue', 'submit'])
@@ -39,8 +39,15 @@
 
     try {
       response = await simulateApiCall(modelValue.value)
-      emit('submit', response)
       errorMessage.value = ''
+
+      const updatedValue = Object.keys(modelValue.value).reduce((acc, key) => {
+        acc[key] = ''
+        return acc
+      }, {})
+
+      emit('update:modelValue', updatedValue)
+      emit('submit', response)
     } catch (error) {
       emit('submit', error)
       errorMessage.value = error.message
