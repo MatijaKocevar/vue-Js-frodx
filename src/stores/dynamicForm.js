@@ -1,5 +1,11 @@
 import { defineStore } from 'pinia'
 
+export const DynamicFormStatus = {
+  NOT_SUBMITTED: 'not_submitted',
+  SUBMITTED: 'submitted',
+  ERROR: 'error'
+}
+
 export const useDynamicFormStore = defineStore({
   id: 'dynamicForm',
 
