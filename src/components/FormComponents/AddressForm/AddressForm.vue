@@ -31,6 +31,7 @@
           :value="modelValue.postalCode"
           type="text"
           required
+          autocomplete="on"
           @input="(e) => input('postalCode', e.target)"
         />
       </div>
