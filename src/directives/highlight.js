@@ -1,19 +1,20 @@
 export default {
   beforeMount(el, binding) {
+    const updateElement = (element) => {
+      element.style.color = 'white'
+      element.style.backgroundColor = binding.value || 'blue'
+      element.style.borderRadius = '10px'
+      element.style.padding = '0 1rem'
+    }
+
     if (el.tagName === 'P' && el.textContent.trim()) {
-      el.style.color = 'white'
-      el.style.backgroundColor = binding.value || 'blue'
-      el.style.borderRadius = '10px'
-      el.style.padding = '0 1rem'
+      updateElement(el)
     }
 
     const paragraphs = el.querySelectorAll('p')
     paragraphs.forEach((p) => {
       if (p.textContent.trim()) {
-        p.style.color = 'white'
-        p.style.backgroundColor = binding.value || 'blue'
-        p.style.borderRadius = '10px'
-        p.style.padding = '0 1rem'
+        updateElement(p)
       }
     })
   }
