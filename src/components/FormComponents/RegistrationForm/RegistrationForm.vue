@@ -11,22 +11,26 @@
     phone: ''
   })
 
-  const { submitRegistration } = useUserRegistrationStore()
+  const { submitRegistration, setRegistrationStatus, isRegistrationSubmitted } = useUserRegistrationStore()
   const { setUnsavedChanges } = useUnsavedChangesStore()
 
-  const handleSubmit = () => {
-    const wasSuccessful = submitRegistration(formData.value)
+  const handleSubmit = async () => {
+    await submitRegistration(formData.value)
 
-    if (wasSuccessful) {
-      formData.value.name = ''
-      formData.value.email = ''
-      formData.value.phone = ''
+    if (isRegistrationSubmitted()) {
+      formData.value = {
+        name: '',
+        email: '',
+        phone: ''
+      }
+
       setUnsavedChanges(false)
     }
   }
 
   const handleInputChange = () => {
     setUnsavedChanges(true)
+    setRegistrationStatus('Not submitted')
   }
 </script>
 
