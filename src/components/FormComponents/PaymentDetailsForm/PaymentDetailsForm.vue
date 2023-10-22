@@ -9,8 +9,8 @@
     cvv: ''
   })
 
-  const handleFormSubmit = (formData) => {
-    console.log('Submitted payment details:', formData)
+  const handleFormSubmit = (response) => {
+    console.log('Submitted payment details:', response)
   }
 </script>
 
@@ -24,7 +24,7 @@
           :value="modelValue.cardName"
           type="text"
           required
-          @input="(e) => input('cardName', e.target.value)"
+          @input="(e) => input('cardName', e.target)"
         />
       </div>
       <div class="input-field">
@@ -35,7 +35,7 @@
           type="text"
           pattern="\d{16}"
           required
-          @input="(e) => input('cardNumber', e.target.value)"
+          @input="(e) => input('cardNumber', e.target)"
         />
       </div>
       <div class="input-field">
@@ -45,7 +45,7 @@
           :value="modelValue.expiryDate"
           type="month"
           required
-          @input="(e) => input('expiryDate', e.target.value)"
+          @input="(e) => input('expiryDate', e.target)"
         />
       </div>
       <div class="input-field">
@@ -56,7 +56,7 @@
           type="number"
           pattern="\d{3,4}"
           required
-          @input="(e) => input('cvv', e.target.value)"
+          @input="(e) => input('cvv', e.target)"
         />
       </div>
     </template>

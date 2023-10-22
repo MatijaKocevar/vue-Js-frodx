@@ -8,8 +8,8 @@
     postalCode: ''
   })
 
-  const handleFormSubmit = (formData) => {
-    console.log('Submitted address:', formData)
+  const handleFormSubmit = (response) => {
+    console.log('Submitted address:', response)
   }
 </script>
 
@@ -18,17 +18,11 @@
     <template #default="{ modelValue, input }">
       <div class="input-field">
         <label for="street">Street:</label>
-        <input
-          id="street"
-          :value="modelValue.street"
-          type="text"
-          required
-          @input="(e) => input('street', e.target.value)"
-        />
+        <input id="street" :value="modelValue.street" type="text" required @input="(e) => input('street', e.target)" />
       </div>
       <div class="input-field">
         <label for="city">City:</label>
-        <input id="city" :value="modelValue.city" type="text" required @input="(e) => input('city', e.target.value)" />
+        <input id="city" :value="modelValue.city" type="text" required @input="(e) => input('city', e.target)" />
       </div>
       <div class="input-field">
         <label for="postalCode">Postal Code:</label>
@@ -37,7 +31,7 @@
           :value="modelValue.postalCode"
           type="text"
           required
-          @input="(e) => input('postalCode', e.target.value)"
+          @input="(e) => input('postalCode', e.target)"
         />
       </div>
     </template>
