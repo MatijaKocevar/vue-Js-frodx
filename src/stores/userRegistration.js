@@ -19,6 +19,9 @@ export const useUserRegistrationStore = defineStore({
     setRegistrationStatus(status) {
       this.registrationStatus = status
     },
+    setUserData(userData) {
+      this.userData = userData
+    },
     async submitRegistration(formData) {
       this.userData = formData
       let response = {}

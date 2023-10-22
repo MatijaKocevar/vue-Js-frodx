@@ -1,18 +1,19 @@
 <script setup>
   import InputField from '../../CommonComponents/InputField/InputField.vue'
-  import { ref } from 'vue'
+  import { ref, onUnmounted } from 'vue'
   import { useUserRegistrationStore } from '../../../stores/userRegistration'
   import { useUnsavedChangesStore } from '../../../stores/unsavedChanges'
   import RegistrationStatus from './RegistrationStatus/RegistrationStatus.vue'
 
-  const formData = ref({
-    name: '',
-    email: '',
-    phone: ''
-  })
-
-  const { submitRegistration, setRegistrationStatus, isRegistrationSubmitted } = useUserRegistrationStore()
+  const { submitRegistration, setRegistrationStatus, isRegistrationSubmitted, userData, setUserData } =
+    useUserRegistrationStore()
   const { setUnsavedChanges } = useUnsavedChangesStore()
+
+  const formData = ref({
+    name: userData.name,
+    email: userData.email,
+    phone: userData.phone
+  })
 
   const handleSubmit = async () => {
     await submitRegistration(formData.value)
@@ -32,6 +33,10 @@
     setUnsavedChanges(true)
     setRegistrationStatus('Not submitted')
   }
+
+  onUnmounted(() => {
+    setUserData(formData.value)
+  })
 </script>
 
 <template>
