@@ -61,10 +61,10 @@
       <h2>{{ title }}</h2>
       <slot v-bind="{ modelValue, input: handleInput }"></slot>
       <button type="submit">Submit</button>
-      <div class="error">
-        <p v-if="errorMessage !== ''" v-highlight="'red'">Error: {{ errorMessage }}</p>
-      </div>
     </form>
+    <div class="error">
+      <p v-if="errorMessage !== ''" v-highlight="'red'">Error: {{ errorMessage }}</p>
+    </div>
   </div>
 </template>
 
