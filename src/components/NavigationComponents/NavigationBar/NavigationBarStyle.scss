@@ -1,0 +1,35 @@
+.navbar {
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 1rem;
+
+  .navbar-toggler {
+    margin: 0 1rem;
+  }
+
+  .navbar-items {
+    justify-content: flex-end;
+    .navbar-nav {
+      .nav-item {
+        display: flex;
+        justify-content: flex-end;
+
+        .nav-link {
+          color: #fff;
+          transition: color 0.3s;
+          padding: 0.5rem 1rem;
+
+          &:hover {
+            color: #55acee;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .navbar {
+    flex-direction: row-reverse;
+  }
+}

@@ -5,7 +5,7 @@
             "type": "chrome",
             "request": "attach",
             "name": "Attach to Chrome",
-            "url": "http://localhost:5173",
+            "url": "https://localhost:5173/vue-Js-frodx/",
             "webRoot": "${workspaceFolder}",
             "port": 9222
         }
