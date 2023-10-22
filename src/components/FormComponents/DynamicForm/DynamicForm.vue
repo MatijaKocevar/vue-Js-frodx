@@ -2,6 +2,7 @@
   import { onMounted, ref, toRefs, computed } from 'vue'
   import { simulateApiCall } from '../../../services/api'
   import { useDynamicFormStore } from '../../../stores/dynamicForm'
+  import { DynamicFormStatus } from '../../../stores/dynamicForm'
 
   const emit = defineEmits(['update:modelValue', 'submit'])
 
@@ -38,7 +39,7 @@
   const handleInput = (key, target) => {
     const updatedValue = { ...modelValue.value, [key]: target.value }
 
-    setFormData(id.value, updatedValue, 'not_submitted')
+    setFormData(id.value, updatedValue, DynamicFormStatus.NOT_SUBMITTED)
     validateInput(target)
 
     emit('update:modelValue', updatedValue)
@@ -57,13 +58,13 @@
         }, {})
 
         errorMessage.value = ''
-        resetFormData(id.value, 'submitted')
+        resetFormData(id.value, DynamicFormStatus.SUBMITTED)
 
         emit('update:modelValue', updatedValue)
         emit('submit', response)
       }
     } catch (error) {
-      setFormStatus(id.value, 'error')
+      setFormStatus(id.value, DynamicFormStatus.ERROR)
 
       emit('submit', error)
       errorMessage.value = error.message
@@ -89,9 +90,11 @@
       </form>
     </div>
     <div class="status">
-      <p v-if="formStatus === 'error'" v-highlight="'red'">Error: {{ errorMessage }}</p>
-      <p v-else-if="formStatus === 'submitted'" v-highlight="'green'">Submitted</p>
-      <p v-else-if="!formStatus || formStatus === 'not_submitted'" v-highlight="'lightblue'">Not submitted</p>
+      <p v-if="formStatus === DynamicFormStatus.ERROR" v-highlight="'red'">Error: {{ errorMessage }}</p>
+      <p v-else-if="formStatus === DynamicFormStatus.SUBMITTED" v-highlight="'green'">Submitted</p>
+      <p v-else-if="!formStatus || formStatus === DynamicFormStatus.NOT_SUBMITTED" v-highlight="'lightblue'">
+        Not submitted
+      </p>
     </div>
   </div>
 </template>
