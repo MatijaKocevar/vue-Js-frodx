@@ -22,6 +22,7 @@
 
   const { modelValue, title, id } = toRefs(props)
   const errorMessage = ref('')
+  const { setFormData, resetFormData, getFormData } = useDynamicFormStore()
 
   const validateInput = (target) => {
     if (target.validity.valueMissing) {
@@ -34,7 +35,6 @@
   }
 
   const handleInput = (key, target) => {
-    const { setFormData } = useDynamicFormStore()
     const updatedValue = { ...modelValue.value, [key]: target.value }
 
     setFormData(id.value, updatedValue)
@@ -50,14 +50,12 @@
       response = await simulateApiCall(modelValue.value)
 
       if (response?.success) {
-        const { resetFormData } = useDynamicFormStore()
-        errorMessage.value = ''
-
         const updatedValue = Object.keys(modelValue.value).reduce((acc, key) => {
           acc[key] = ''
           return acc
         }, {})
 
+        errorMessage.value = ''
         resetFormData(id.value)
 
         emit('update:modelValue', updatedValue)
@@ -70,8 +68,6 @@
   }
 
   onMounted(() => {
-    const { getFormData } = useDynamicFormStore()
-
     const formData = getFormData(id.value)
 
     if (formData) {
@@ -81,12 +77,14 @@
 </script>
 
 <template>
-  <div class="registration-form">
-    <form @submit.prevent="handleSubmit">
-      <h2>{{ title }}</h2>
-      <slot v-bind="{ modelValue, input: handleInput }"></slot>
-      <button type="submit">Submit</button>
-    </form>
+  <div class="registration">
+    <div class="form">
+      <form @submit.prevent="handleSubmit">
+        <h2>{{ title }}</h2>
+        <slot v-bind="{ modelValue, input: handleInput }"></slot>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
     <div class="error">
       <p v-if="errorMessage !== ''" v-highlight="'red'">Error: {{ errorMessage }}</p>
     </div>
