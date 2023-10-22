@@ -14,7 +14,7 @@
 </script>
 
 <template>
-  <DynamicForm v-model="formData" title="User profile" @submit="handleFormSubmit">
+  <DynamicForm id="user-profile-form" v-model="formData" title="User profile" @submit="handleFormSubmit">
     <template #default="{ modelValue, input }">
       <div class="input-field">
         <label for="username">Username:</label>
@@ -22,6 +22,7 @@
           id="username"
           :value="modelValue.username"
           type="text"
+          autocomplete="on"
           required
           @input="(e) => input('username', e.target)"
         />
@@ -32,6 +33,7 @@
           id="birthdate"
           :value="modelValue.birthdate"
           type="date"
+          autocomplete="on"
           required
           @input="(e) => input('birthdate', e.target)"
         />

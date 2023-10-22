@@ -15,7 +15,7 @@
 </script>
 
 <template>
-  <DynamicForm v-model="formData" title="Payment details" @submit="handleFormSubmit">
+  <DynamicForm id="payment-details-form" v-model="formData" title="Payment details" @submit="handleFormSubmit">
     <template #default="{ modelValue, input }">
       <div class="input-field">
         <label for="cardName">Cardholder Name:</label>
@@ -24,6 +24,7 @@
           :value="modelValue.cardName"
           type="text"
           required
+          autocomplete="on"
           @input="(e) => input('cardName', e.target)"
         />
       </div>
@@ -35,6 +36,7 @@
           type="text"
           pattern="\d{16}"
           required
+          autocomplete="on"
           @input="(e) => input('cardNumber', e.target)"
         />
       </div>
@@ -45,6 +47,7 @@
           :value="modelValue.expiryDate"
           type="month"
           required
+          autocomplete="on"
           @input="(e) => input('expiryDate', e.target)"
         />
       </div>
@@ -56,6 +59,7 @@
           type="number"
           pattern="\d{3,4}"
           required
+          autocomplete="on"
           @input="(e) => input('cvv', e.target)"
         />
       </div>
