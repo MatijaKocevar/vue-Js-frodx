@@ -22,6 +22,7 @@
           id="username"
           :value="modelValue.username"
           type="text"
+          autocomplete="on"
           required
           @input="(e) => input('username', e.target)"
         />
@@ -32,6 +33,7 @@
           id="birthdate"
           :value="modelValue.birthdate"
           type="date"
+          autocomplete="on"
           required
           @input="(e) => input('birthdate', e.target)"
         />
