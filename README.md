@@ -3,6 +3,8 @@
 This Vue project showcases form handling, state management with Pinia, dynamic routing, component composition, and custom directives.
 The project is configured with ESLint to maintain code standards. It is built using Vite, which offers fast development cycles and efficient production builds. The project is also configured with Prettier to ensure code formatting consistency.
 
+Live demo: https://matijakocevar.github.io/vue-Js-frodx
+
 ## Table of Contents
 
 - [Features](#features)
