@@ -1,6 +1,7 @@
 <script setup>
-  import { ref, toRefs } from 'vue'
+  import { onMounted, ref, toRefs } from 'vue'
   import { simulateApiCall } from '../../../services/api'
+  import { useDynamicFormStore } from '../../../stores/dynamicForm'
 
   const emit = defineEmits(['update:modelValue', 'submit'])
 
@@ -9,13 +10,17 @@
       type: String,
       default: ''
     },
+    id: {
+      type: String,
+      required: true
+    },
     modelValue: {
       type: Object,
       default: () => ({})
     }
   })
 
-  const { modelValue, title } = toRefs(props)
+  const { modelValue, title, id } = toRefs(props)
   const errorMessage = ref('')
 
   const validateInput = (target) => {
@@ -29,8 +34,12 @@
   }
 
   const handleInput = (key, target) => {
+    const { setFormData } = useDynamicFormStore()
     const updatedValue = { ...modelValue.value, [key]: target.value }
+
+    setFormData(id.value, updatedValue)
     validateInput(target)
+
     emit('update:modelValue', updatedValue)
   }
 
@@ -39,20 +48,36 @@
 
     try {
       response = await simulateApiCall(modelValue.value)
-      errorMessage.value = ''
 
-      const updatedValue = Object.keys(modelValue.value).reduce((acc, key) => {
-        acc[key] = ''
-        return acc
-      }, {})
+      if (response?.success) {
+        const { resetFormData } = useDynamicFormStore()
+        errorMessage.value = ''
 
-      emit('update:modelValue', updatedValue)
-      emit('submit', response)
+        const updatedValue = Object.keys(modelValue.value).reduce((acc, key) => {
+          acc[key] = ''
+          return acc
+        }, {})
+
+        resetFormData(id.value)
+
+        emit('update:modelValue', updatedValue)
+        emit('submit', response)
+      }
     } catch (error) {
       emit('submit', error)
       errorMessage.value = error.message
     }
   }
+
+  onMounted(() => {
+    const { getFormData } = useDynamicFormStore()
+
+    const formData = getFormData(id.value)
+
+    if (formData) {
+      emit('update:modelValue', formData)
+    }
+  })
 </script>
 
 <template>
@@ -61,10 +86,10 @@
       <h2>{{ title }}</h2>
       <slot v-bind="{ modelValue, input: handleInput }"></slot>
       <button type="submit">Submit</button>
-      <div class="error">
-        <p v-if="errorMessage !== ''" v-highlight="'red'">Error: {{ errorMessage }}</p>
-      </div>
     </form>
+    <div class="error">
+      <p v-if="errorMessage !== ''" v-highlight="'red'">Error: {{ errorMessage }}</p>
+    </div>
   </div>
 </template>
 

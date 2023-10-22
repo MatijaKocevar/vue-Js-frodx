@@ -14,7 +14,7 @@
 </script>
 
 <template>
-  <DynamicForm v-model="formData" title="User profile" @submit="handleFormSubmit">
+  <DynamicForm id="user-profile-form" v-model="formData" title="User profile" @submit="handleFormSubmit">
     <template #default="{ modelValue, input }">
       <div class="input-field">
         <label for="username">Username:</label>

@@ -35,8 +35,10 @@ export const useUserRegistrationStore = defineStore({
       try {
         response = await simulateApiCall()
 
-        this.registrationStatus = RegistrationStatusOption.SUBMITTED
-        this.errorMessage = response.message
+        if (response?.success) {
+          this.registrationStatus = RegistrationStatusOption.SUBMITTED
+          this.errorMessage = response.message
+        }
       } catch (error) {
         this.registrationStatus = 'Error'
         this.errorMessage = error.message
