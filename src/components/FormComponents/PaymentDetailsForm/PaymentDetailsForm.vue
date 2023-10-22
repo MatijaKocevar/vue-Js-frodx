@@ -10,7 +10,7 @@
   })
 
   const handleFormSubmit = (response) => {
-    console.log('Submitted payment details:', response)
+    console.log('Payment details form response: ', response)
   }
 </script>
 

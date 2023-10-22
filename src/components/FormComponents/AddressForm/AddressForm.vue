@@ -9,7 +9,7 @@
   })
 
   const handleFormSubmit = (response) => {
-    console.log('Submitted address:', response)
+    console.log('Address form response: ', response)
   }
 </script>
 

@@ -9,7 +9,7 @@
   })
 
   const handleFormSubmit = (response) => {
-    console.log('Submitted profile:', response)
+    console.log('User profile form response: ', response)
   }
 </script>
 

@@ -8,7 +8,7 @@
   })
 
   const handleFormSubmit = (response) => {
-    console.log('Success?:', response)
+    console.log('Sample form response: ', response)
   }
 </script>
 
