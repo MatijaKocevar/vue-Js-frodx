@@ -49,9 +49,6 @@
         <li class="nav-item">
           <router-link to="/forms" class="nav-link d-lg-inline d-block"> Dynamic Forms </router-link>
         </li>
-        <li class="nav-item">
-          <router-link to="/about" class="nav-link d-lg-inline d-block"> About </router-link>
-        </li>
       </ul>
     </div>
   </nav>
