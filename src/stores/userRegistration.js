@@ -1,10 +1,16 @@
 import { defineStore } from 'pinia'
 import { simulateApiCall } from '../services/api'
 
+export const RegistrationStatusOption = {
+  NOT_SUBMITTED: 'Not submitted',
+  SUBMITTED: 'Submitted',
+  ERROR: 'Error'
+}
+
 export const useUserRegistrationStore = defineStore({
   id: 'userRegistration',
   state: () => ({
-    registrationStatus: 'Not submitted',
+    registrationStatus: RegistrationStatusOption.NOT_SUBMITTED,
     userData: {
       name: '',
       email: '',
@@ -14,7 +20,7 @@ export const useUserRegistrationStore = defineStore({
   }),
   actions: {
     isRegistrationSubmitted() {
-      return this.registrationStatus === 'Submitted'
+      return this.registrationStatus === RegistrationStatusOption.SUBMITTED
     },
     setRegistrationStatus(status) {
       this.registrationStatus = status
@@ -29,7 +35,7 @@ export const useUserRegistrationStore = defineStore({
       try {
         response = await simulateApiCall()
 
-        this.registrationStatus = 'Submitted'
+        this.registrationStatus = RegistrationStatusOption.SUBMITTED
         this.errorMessage = response.message
       } catch (error) {
         this.registrationStatus = 'Error'

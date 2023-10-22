@@ -1,7 +1,7 @@
 <script setup>
   import InputField from '../../CommonComponents/InputField/InputField.vue'
   import { ref, onUnmounted } from 'vue'
-  import { useUserRegistrationStore } from '../../../stores/userRegistration'
+  import { useUserRegistrationStore, RegistrationStatusOption } from '../../../stores/userRegistration'
   import { useUnsavedChangesStore } from '../../../stores/unsavedChanges'
   import RegistrationStatus from './RegistrationStatus/RegistrationStatus.vue'
 
@@ -31,7 +31,7 @@
 
   const handleInputChange = () => {
     setUnsavedChanges(true)
-    setRegistrationStatus('Not submitted')
+    setRegistrationStatus(RegistrationStatusOption.NOT_SUBMITTED)
   }
 
   onUnmounted(() => {
