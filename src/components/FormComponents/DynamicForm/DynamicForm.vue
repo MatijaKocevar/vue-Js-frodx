@@ -1,5 +1,6 @@
 <script setup>
   import { ref, toRefs } from 'vue'
+  import { simulateApiCall } from '../../../services/api'
 
   const emit = defineEmits(['update:modelValue', 'submit'])
 
@@ -17,20 +18,40 @@
   const { modelValue, title } = toRefs(props)
   const errorMessage = ref('')
 
-  const handleInput = (key, value) => {
-    const updatedValue = { ...modelValue.value, [key]: value }
+  const validateInput = (target) => {
+    if (target.validity.valueMissing) {
+      target.setCustomValidity(`Field is required!`)
+    } else {
+      target.setCustomValidity('')
+    }
+    target.checkValidity()
+    target.reportValidity()
+  }
+
+  const handleInput = (key, target) => {
+    const updatedValue = { ...modelValue.value, [key]: target.value }
+    validateInput(target)
     emit('update:modelValue', updatedValue)
   }
 
-  const handleSubmit = () => {
-    for (const field in modelValue.value) {
-      if (!modelValue.value[field]) {
-        errorMessage.value = 'All fields are required!'
-        return
-      }
+  const handleSubmit = async () => {
+    let response = {}
+
+    try {
+      response = await simulateApiCall(modelValue.value)
+      errorMessage.value = ''
+
+      const updatedValue = Object.keys(modelValue.value).reduce((acc, key) => {
+        acc[key] = ''
+        return acc
+      }, {})
+
+      emit('update:modelValue', updatedValue)
+      emit('submit', response)
+    } catch (error) {
+      emit('submit', error)
+      errorMessage.value = error.message
     }
-    errorMessage.value = ''
-    emit('submit', modelValue.value)
   }
 </script>
 
@@ -39,8 +60,10 @@
     <form @submit.prevent="handleSubmit">
       <h2>{{ title }}</h2>
       <slot v-bind="{ modelValue, input: handleInput }"></slot>
-      <div v-if="errorMessage">{{ errorMessage }}</div>
       <button type="submit">Submit</button>
+      <div class="error">
+        <p v-if="errorMessage !== ''" v-highlight="'red'">Error: {{ errorMessage }}</p>
+      </div>
     </form>
   </div>
 </template>

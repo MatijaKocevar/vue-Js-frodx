@@ -7,8 +7,8 @@
     email: ''
   })
 
-  const handleFormSubmit = (formData) => {
-    console.log('Submitted data:', formData)
+  const handleFormSubmit = (response) => {
+    console.log('Sample form response: ', response)
   }
 </script>
 
@@ -17,23 +17,11 @@
     <template #default="{ modelValue, input }">
       <div class="input-field">
         <label for="name">Name:</label>
-        <input
-          id="name"
-          :modelValue="modelValue.name"
-          type="text"
-          required
-          @input="(e) => input('name', e.target.value)"
-        />
+        <input id="name" :value="modelValue.name" type="text" required @input="(e) => input('name', e.target)" />
       </div>
       <div class="input-field">
         <label for="email">Email:</label>
-        <input
-          id="email"
-          :modelValue="modelValue.email"
-          type="email"
-          required
-          @input="(e) => input('email', e.target.value)"
-        />
+        <input id="email" :value="modelValue.email" type="email" required @input="(e) => input('email', e.target)" />
       </div>
     </template>
   </DynamicForm>

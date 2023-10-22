@@ -1,33 +1,42 @@
 <script setup>
   import InputField from '../../CommonComponents/InputField/InputField.vue'
-  import { ref } from 'vue'
-  import { useUserRegistrationStore } from '../../../stores/userRegistration'
+  import { ref, onUnmounted } from 'vue'
+  import { useUserRegistrationStore, RegistrationStatusOption } from '../../../stores/userRegistration'
   import { useUnsavedChangesStore } from '../../../stores/unsavedChanges'
   import RegistrationStatus from './RegistrationStatus/RegistrationStatus.vue'
 
-  const formData = ref({
-    name: '',
-    email: '',
-    phone: ''
-  })
-
-  const { submitRegistration } = useUserRegistrationStore()
+  const { submitRegistration, setRegistrationStatus, isRegistrationSubmitted, userData, setUserData } =
+    useUserRegistrationStore()
   const { setUnsavedChanges } = useUnsavedChangesStore()
 
-  const handleSubmit = () => {
-    const wasSuccessful = submitRegistration(formData.value)
+  const formData = ref({
+    name: userData.name,
+    email: userData.email,
+    phone: userData.phone
+  })
 
-    if (wasSuccessful) {
-      formData.value.name = ''
-      formData.value.email = ''
-      formData.value.phone = ''
+  const handleSubmit = async () => {
+    await submitRegistration(formData.value)
+
+    if (isRegistrationSubmitted()) {
+      formData.value = {
+        name: '',
+        email: '',
+        phone: ''
+      }
+
       setUnsavedChanges(false)
     }
   }
 
   const handleInputChange = () => {
     setUnsavedChanges(true)
+    setRegistrationStatus(RegistrationStatusOption.NOT_SUBMITTED)
   }
+
+  onUnmounted(() => {
+    setUserData(formData.value)
+  })
 </script>
 
 <template>

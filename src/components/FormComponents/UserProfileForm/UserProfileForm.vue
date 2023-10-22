@@ -8,8 +8,8 @@
     bio: ''
   })
 
-  const handleFormSubmit = (formData) => {
-    console.log('Submitted profile:', formData)
+  const handleFormSubmit = (response) => {
+    console.log('User profile form response: ', response)
   }
 </script>
 
@@ -23,7 +23,7 @@
           :value="modelValue.username"
           type="text"
           required
-          @input="(e) => input('username', e.target.value)"
+          @input="(e) => input('username', e.target)"
         />
       </div>
       <div class="input-field">
@@ -33,18 +33,12 @@
           :value="modelValue.birthdate"
           type="date"
           required
-          @input="(e) => input('birthdate', e.target.value)"
+          @input="(e) => input('birthdate', e.target)"
         />
       </div>
       <div class="input-field">
         <label for="bio">Bio:</label>
-        <textarea
-          id="bio"
-          :value="modelValue.bio"
-          rows="4"
-          required
-          @input="(e) => input('bio', e.target.value)"
-        ></textarea>
+        <textarea id="bio" :value="modelValue.bio" rows="4" required @input="(e) => input('bio', e.target)"></textarea>
       </div>
     </template>
   </DynamicForm>

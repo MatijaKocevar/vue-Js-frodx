@@ -1,9 +1,16 @@
 import { defineStore } from 'pinia'
+import { simulateApiCall } from '../services/api'
+
+export const RegistrationStatusOption = {
+  NOT_SUBMITTED: 'Not submitted',
+  SUBMITTED: 'Submitted',
+  ERROR: 'Error'
+}
 
 export const useUserRegistrationStore = defineStore({
   id: 'userRegistration',
   state: () => ({
-    registrationStatus: 'Not submitted',
+    registrationStatus: RegistrationStatusOption.NOT_SUBMITTED,
     userData: {
       name: '',
       email: '',
@@ -12,20 +19,28 @@ export const useUserRegistrationStore = defineStore({
     errorMessage: ''
   }),
   actions: {
-    submitRegistration(formData) {
-      //mock random success
-      const isSuccess = Math.random() > 0.5
+    isRegistrationSubmitted() {
+      return this.registrationStatus === RegistrationStatusOption.SUBMITTED
+    },
+    setRegistrationStatus(status) {
+      this.registrationStatus = status
+    },
+    setUserData(userData) {
+      this.userData = userData
+    },
+    async submitRegistration(formData) {
+      this.userData = formData
+      let response = {}
 
-      if (isSuccess) {
-        this.userData = formData
-        this.registrationStatus = 'Submitted'
-        this.errorMessage = null
-      } else {
+      try {
+        response = await simulateApiCall()
+
+        this.registrationStatus = RegistrationStatusOption.SUBMITTED
+        this.errorMessage = response.message
+      } catch (error) {
         this.registrationStatus = 'Error'
-        this.errorMessage = 'Something went wrong!'
+        this.errorMessage = error.message
       }
-
-      return isSuccess
     }
   }
 })
