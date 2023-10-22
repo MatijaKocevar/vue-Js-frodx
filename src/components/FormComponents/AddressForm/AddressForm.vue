@@ -14,7 +14,7 @@
 </script>
 
 <template>
-  <DynamicForm v-model="formData" title="Address" @submit="handleFormSubmit">
+  <DynamicForm id="address-form" v-model="formData" title="Address" @submit="handleFormSubmit">
     <template #default="{ modelValue, input }">
       <div class="input-field">
         <label for="street">Street:</label>

@@ -1,11 +1,16 @@
 <script setup>
-  import { ref, toRefs } from 'vue'
+  import { onUnmounted, onMounted, ref, toRefs } from 'vue'
   import { simulateApiCall } from '../../../services/api'
+  import { useDynamicFormStore } from '../../../stores/dynamicForm'
 
   const emit = defineEmits(['update:modelValue', 'submit'])
 
   const props = defineProps({
     title: {
+      type: String,
+      default: ''
+    },
+    id: {
       type: String,
       default: ''
     },
@@ -15,7 +20,7 @@
     }
   })
 
-  const { modelValue, title } = toRefs(props)
+  const { modelValue, title, id } = toRefs(props)
   const errorMessage = ref('')
 
   const validateInput = (target) => {
@@ -29,8 +34,12 @@
   }
 
   const handleInput = (key, target) => {
+    const { setFormData } = useDynamicFormStore()
     const updatedValue = { ...modelValue.value, [key]: target.value }
+
+    setFormData(id.value, updatedValue)
     validateInput(target)
+
     emit('update:modelValue', updatedValue)
   }
 
@@ -53,6 +62,13 @@
       errorMessage.value = error.message
     }
   }
+
+  onMounted(() => {
+    const { getFormData } = useDynamicFormStore()
+
+    const formData = getFormData(id.value)
+    emit('update:modelValue', formData)
+  })
 </script>
 
 <template>

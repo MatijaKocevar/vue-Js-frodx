@@ -15,7 +15,7 @@
 </script>
 
 <template>
-  <DynamicForm v-model="formData" title="Payment details" @submit="handleFormSubmit">
+  <DynamicForm id="payment-details-form" v-model="formData" title="Payment details" @submit="handleFormSubmit">
     <template #default="{ modelValue, input }">
       <div class="input-field">
         <label for="cardName">Cardholder Name:</label>
