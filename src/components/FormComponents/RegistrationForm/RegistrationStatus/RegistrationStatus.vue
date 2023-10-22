@@ -15,6 +15,7 @@
   <div class="registration-status">
     <p v-if="showSubmitted" v-highlight="'green'" class="submitted">Submitted</p>
     <p v-else-if="registrationStatus === 'Error'" v-highlight="'red'" class="error">Error: {{ errorMessage }}</p>
+    <p v-else-if="registrationStatus === 'Not submitted'" v-highlight="'lightblue'" class="idle">Not submitted</p>
   </div>
 </template>
 
