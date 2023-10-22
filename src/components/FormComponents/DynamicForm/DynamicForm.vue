@@ -1,5 +1,5 @@
 <script setup>
-  import { onMounted, ref, toRefs } from 'vue'
+  import { onMounted, ref, toRefs, computed } from 'vue'
   import { simulateApiCall } from '../../../services/api'
   import { useDynamicFormStore } from '../../../stores/dynamicForm'
 
@@ -22,7 +22,8 @@
 
   const { modelValue, title, id } = toRefs(props)
   const errorMessage = ref('')
-  const { setFormData, resetFormData, getFormData } = useDynamicFormStore()
+  const { setFormData, resetFormData, getFormData, setFormStatus, formData } = useDynamicFormStore()
+  const formStatus = computed(() => formData[id.value]?.status)
 
   const validateInput = (target) => {
     if (target.validity.valueMissing) {
@@ -37,7 +38,7 @@
   const handleInput = (key, target) => {
     const updatedValue = { ...modelValue.value, [key]: target.value }
 
-    setFormData(id.value, updatedValue)
+    setFormData(id.value, updatedValue, 'not_submitted')
     validateInput(target)
 
     emit('update:modelValue', updatedValue)
@@ -56,12 +57,14 @@
         }, {})
 
         errorMessage.value = ''
-        resetFormData(id.value)
+        resetFormData(id.value, 'submitted')
 
         emit('update:modelValue', updatedValue)
         emit('submit', response)
       }
     } catch (error) {
+      setFormStatus(id.value, 'error')
+
       emit('submit', error)
       errorMessage.value = error.message
     }
@@ -85,8 +88,10 @@
         <button type="submit">Submit</button>
       </form>
     </div>
-    <div class="error">
-      <p v-if="errorMessage !== ''" v-highlight="'red'">Error: {{ errorMessage }}</p>
+    <div class="status">
+      <p v-if="formStatus === 'error'" v-highlight="'red'">Error: {{ errorMessage }}</p>
+      <p v-else-if="formStatus === 'submitted'" v-highlight="'green'">Submitted</p>
+      <p v-else-if="!formStatus || formStatus === 'not_submitted'" v-highlight="'lightblue'">Not submitted</p>
     </div>
   </div>
 </template>

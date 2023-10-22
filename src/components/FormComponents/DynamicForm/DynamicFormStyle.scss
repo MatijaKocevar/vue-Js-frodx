@@ -31,13 +31,13 @@
         background-color: #0056b3;
       }
     }
+  }
+  .status {
+    display: flex;
+    justify-content: center;
 
-    .error {
-      margin: 1rem 0;
-
-      p {
-        margin: 0 !important;
-      }
+    p {
+      margin: 0 !important;
     }
   }
 }
