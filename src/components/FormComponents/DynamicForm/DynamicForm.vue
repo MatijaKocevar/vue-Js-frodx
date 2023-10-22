@@ -1,5 +1,5 @@
 <script setup>
-  import { onUnmounted, onMounted, ref, toRefs } from 'vue'
+  import { onMounted, ref, toRefs } from 'vue'
   import { simulateApiCall } from '../../../services/api'
   import { useDynamicFormStore } from '../../../stores/dynamicForm'
 
@@ -12,7 +12,7 @@
     },
     id: {
       type: String,
-      default: ''
+      required: true
     },
     modelValue: {
       type: Object,
@@ -48,15 +48,21 @@
 
     try {
       response = await simulateApiCall(modelValue.value)
-      errorMessage.value = ''
 
-      const updatedValue = Object.keys(modelValue.value).reduce((acc, key) => {
-        acc[key] = ''
-        return acc
-      }, {})
+      if (response?.success) {
+        const { resetFormData } = useDynamicFormStore()
+        errorMessage.value = ''
 
-      emit('update:modelValue', updatedValue)
-      emit('submit', response)
+        const updatedValue = Object.keys(modelValue.value).reduce((acc, key) => {
+          acc[key] = ''
+          return acc
+        }, {})
+
+        resetFormData(id.value)
+
+        emit('update:modelValue', updatedValue)
+        emit('submit', response)
+      }
     } catch (error) {
       emit('submit', error)
       errorMessage.value = error.message
@@ -67,7 +73,10 @@
     const { getFormData } = useDynamicFormStore()
 
     const formData = getFormData(id.value)
-    emit('update:modelValue', formData)
+
+    if (formData) {
+      emit('update:modelValue', formData)
+    }
   })
 </script>
 
