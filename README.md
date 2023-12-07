@@ -1,4 +1,4 @@
-# Vue JS Assessment
+# Vue dynamic forms
 
 This Vue project showcases form handling, state management with Pinia, dynamic routing, component composition, and custom directives.
 
@@ -6,7 +6,7 @@ The project is configured with ESLint to maintain code standards and is also con
 
 It is built using Vite, which offers fast development cycles and efficient production builds.
 
-Live demo: https://matijakocevar.github.io/vue-Js-frodx
+Live demo: https://matijakocevar.github.io/vue-dynamic-forms
 
 ## Table of Contents
 
@@ -60,12 +60,12 @@ Live demo: https://matijakocevar.github.io/vue-Js-frodx
 1.  **Clone the repository**
 
     ```bash
-    git clone https://github.com/MatijaKocevar/vue-Js-frodx.git
+    git clone https://github.com/MatijaKocevar/vue-dynamic-forms.git
     ```
 
 2.  **Navigate to the project directory**
     ```bash
-    cd vue-Js-frodx
+    cd vue-dynamic-forms
     ```
 
 3.  **Install dependencies**

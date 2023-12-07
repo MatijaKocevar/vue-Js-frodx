@@ -5,7 +5,7 @@
             "type": "chrome",
             "request": "attach",
             "name": "Attach to Chrome",
-            "url": "https://localhost:5173/vue-Js-frodx/",
+            "url": "https://localhost:5173/vue-dynamic-forms/",
             "webRoot": "${workspaceFolder}",
             "port": 9222
         }
